@@ -1,0 +1,222 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    android:padding="16dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#f8f9fc"
+            android:layout_gravity="bottom"
+            android:paddingBottom="24dp"
+            android:padding="14dp">
+        <!-- Edit Tanggal -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tanggal"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <Button
+                android:id="@+id/btnPilihTanggal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pilih Tanggal"/>
+
+            <!-- Edit Jam -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jam"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <Button
+                android:id="@+id/btnPilihJam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pilih Jam"/>
+
+            <!-- Edit Agenda -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agenda"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/editTextAgenda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="200dp"
+                android:hint="Masukkan agenda"/>
+
+            <!-- Edit Lokasi -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lokasi"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/editTextLokasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:minWidth="200dp"
+                android:hint="Masukkan lokasi"/>
+
+            <!-- Edit Disposisi Surat -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Disposisi Surat"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/editTextDisposisi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="200dp"
+                android:hint="Masukkan disposisi surat"/>
+
+            <!-- Edit Keterangan -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Keterangan"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/editTextKeterangan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="200dp"
+                android:hint="Masukkan keterangan"/>
+
+            <!-- Lampiran -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lampiran"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <Button
+                android:id="@+id/btnChooseFile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pilih file"/>
+
+            <!-- Kontak Person -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kontak Person"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/editTextKontakPerson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="200dp"
+                android:hint="Masukkan kontak person"/>
+
+            <!-- Publik -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="Publik"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+                <Switch
+                    android:id="@+id/switchYesNo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textOff="Tidak"
+                    android:textOn="Ya"
+                    android:minWidth="70dp"
+                    android:minHeight="48dp"/>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btnEditSimpan"
+                android:layout_width="109dp"
+                android:layout_height="wrap_content"
+                android:minWidth="70dp"
+                android:minHeight="48dp"
+                android:text="Simpan" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:orientation="vertical"
+                android:padding="14dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/autoCompleteTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Ketik sesuatu..."
+                        android:inputType="text"
+                        android:completionThreshold="1"
+                        android:minWidth="70dp"
+                        android:minHeight="48dp"
+                        android:layout_toStartOf="@+id/iconTambah"/>
+
+                    <ImageView
+                        android:id="@+id/iconTambah"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@android:drawable/ic_input_add"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:padding="8dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewPersonel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/autoCompleteTextView"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

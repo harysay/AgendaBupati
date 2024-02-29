@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:right="2dp" android:left="2dp" android:top="2dp" android:bottom="2dp">
+        <shape>
+            <padding android:left="4dp" android:right="4dp" android:top="4dp" android:bottom="4dp" />
+            <solid android:color="#C3C2C2" /> <!-- Warna latar belakang -->
+        </shape>
+    </item>
+<!--    <item android:right="2dp" android:left="2dp" android:top="2dp" android:bottom="2dp">-->
+<!--        <shape>-->
+<!--            <solid android:color="@android:color/transparent" /> &lt;!&ndash; Warna transparan untuk border &ndash;&gt;-->
+<!--            <stroke android:width="1dp" android:color="#000000" /> &lt;!&ndash; Warna dan lebar border &ndash;&gt;-->
+<!--        </shape>-->
+<!--    </item>-->
+</layer-list>

@@ -1,0 +1,83 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.AgendaBupati" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary</item>
+<!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
+<!--        <item name="colorOnPrimary">@color/white</item>-->
+<!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
+<!--        <item name="colorSecondary">@color/teal_200</item>-->
+<!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->
+<!--        <item name="colorOnSecondary">@color/black</item>-->
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/primary</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.AgendaBupati.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/subject</item>
+        <item name="android:textColorSecondary">@color/subject</item>
+    </style>
+
+    <style name="Theme.AgendaBupati.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.AgendaBupati.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Button" />
+
+    <style name="Button.Blue">
+        <item name="android:background">@drawable/bg_button_blue</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAppearance">@style/TextView.PoppinsBoldWhite</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="TextView" />
+    <style name="TextView.PoppinsRegularBlack">
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:textColor">@color/blackColor</item>
+    </style>
+    <style name="TextView.PoppinsBoldWhite">
+        <item name="android:fontFamily">@font/inter_bold</item>
+        <item name="android:textColor">@color/whiteColor</item>
+    </style>
+
+    <style name="TextView.PoppinsRegularGrey">
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:textColor">@color/greyColor</item>
+    </style>
+
+    <style name="Toast" />
+    <style name="Toast.Error">
+        <item name="stTextColor">#fff</item>
+        <item name="stFont">@font/inter_regular</item>
+        <item name="stTextSize">14sp</item>
+        <item name="stColorBackground">@color/redColor</item>
+        <item name="stSolidBackground">true</item>
+        <item name="stLength">SHORT</item>
+        <item name="stGravity">top</item>
+        <item name="stRadius">12dp</item>
+    </style>
+
+    <style name="Toast.Success">
+        <item name="stTextColor">#fff</item>
+        <item name="stFont">@font/inter_regular</item>
+        <item name="stTextSize">14sp</item>
+        <item name="stColorBackground">@color/greenColor</item>
+        <item name="stSolidBackground">true</item>
+        <item name="stLength">SHORT</item>
+        <item name="stGravity">top</item>
+        <item name="stRadius">12dp</item>
+    </style>
+</resources>

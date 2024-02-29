@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dp">
+    <RelativeLayout
+        android:id="@+id/icon_tglagenda"
+        android:gravity="center"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/icon_frontagenda"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:fillAfter="false"
+            android:fillEnabled="false">
+
+            <ImageView
+                android:id="@+id/icon_profilecuti"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/bg_circle"/>
+
+            <TextView
+                android:id="@+id/icon_texttgl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text=">>"
+                android:textColor="@android:color/white"
+                android:textSize="22dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/message_containercuti"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="?android:attr/textColorPrimary"
+            android:paddingRight="10dp"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+        <RelativeLayout
+            android:layout_marginTop="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txt_jumlahKegiatan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/jumlah_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:layout_alignParentRight="true"
+                android:visibility="gone"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
+                android:background="@drawable/rounded_orange"
+                android:padding="4dp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

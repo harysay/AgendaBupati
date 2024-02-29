@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <!-- CardView untuk Kegiatan -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewKegiatan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp">
+
+        <!-- Konten dalam CardView -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#A0E9FF"
+            android:padding="14dp">
+
+            <TextView
+                android:id="@+id/textNamaKegiatan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nama Kegiatan: Exit Meeting Pemeriksaan BPK Perwakilan Provinsi Jawa Tengah Terkait Pemeriksaan Pendahuluan Kepatuhan Belanja Infrastruktur TA"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:background="@drawable/rounded_background"/>
+
+            <TextView
+                android:id="@+id/textTempat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tempat: Ruang Rapat Arungbinang"
+                android:textColor="#353535"
+                android:textSize="16sp"
+                android:padding="5dp"
+                android:background="#B4D4FF"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_background_keterangan"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textTanggal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="Tanggal: 2023-10-06"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:padding="5dp"
+                    android:background="@drawable/border_background"/>
+
+                <TextView
+                    android:id="@+id/textJam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:paddingLeft="10dp"
+                    android:text="Jam: 13:00:00"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingRight="10dp"
+                    android:background="@drawable/border_background"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textHadir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hadir: Nama Orang"
+                android:textColor="#4A4A4A"
+                android:background="#B4D4FF"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/textSisposisi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Disposisi: isi disposisi"
+                android:textColor="#353535"
+                android:background="@drawable/border_background_keterangan"
+                android:padding="5dp"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/textPendamping"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pendamping: isi pendamping"
+                android:textColor="#353535"
+                android:background="@drawable/border_background_keterangan"
+                android:padding="5dp"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/textKeterangan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Keterangan: isi keterangan"
+                android:textColor="#353535"
+                android:background="@drawable/border_background_keterangan"
+                android:padding="5dp"
+                android:textSize="16sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#B4D4FF"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textLampiran"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="Lampiran:"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:padding="5dp"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button
+                    android:id="@+id/btnLampiran"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lihat lampiran"
+                    android:textAllCaps="false"
+                    android:drawableLeft="@drawable/ic_attachfile"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="@color/hijauSoftColor"
+                    android:paddingRight="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Edit"
+                    android:clickable="true"
+                    android:layout_gravity="bottom"
+                    android:layout_marginEnd="8dp" /> <!-- Tambahkan marginEnd (atau marginRight) -->
+
+                <Button
+                    android:id="@+id/btnHapus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hapus"
+                    android:backgroundTint="@color/merahSoft"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
