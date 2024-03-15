@@ -10,9 +10,21 @@ import id.go.kebumenkab.agendabupati.model.Kegiatan
 import id.go.kebumenkab.agendabupati.utils.NetworkUtil
 import io.github.muddz.styleabletoast.StyleableToast
 import android.content.Intent
+import androidx.lifecycle.ViewModelProvider
+import id.go.kebumenkab.agendabupati.model.DatadaftaragendaItem
+import id.go.kebumenkab.agendabupati.model.DatadetailItem
+import id.go.kebumenkab.agendabupati.utils.DialogUtils
+import id.go.kebumenkab.agendabupati.utils.HawkStorage
+import id.go.kebumenkab.agendabupati.viewmodel.DetailAgendaViewModel
 
 class DetailAgenda : AppCompatActivity(),KegiatanAdapter.RecyclerViewClickListener {
+    private var dataDaftarAgenda: DatadaftaragendaItem? = null
+    private lateinit var iddaftaragenda: String
     private lateinit var binding: ActivityDetailAgendaBinding
+    private lateinit var daftarAgendaViweModel: DetailAgendaViewModel
+    private lateinit var dataDetailItemList: ArrayList<DatadetailItem>
+    private lateinit var token: String
+    private lateinit var dialog: DialogUtils
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailAgendaBinding.inflate(layoutInflater)
@@ -24,9 +36,12 @@ class DetailAgenda : AppCompatActivity(),KegiatanAdapter.RecyclerViewClickListen
     }
 
     private fun init() {
-//        suratDetailViweModel = ViewModelProvider(this)[SuratDetailKhususViewModel::class.java]
-//        dialog = DialogUtils()
-//        /** Mengecek internet  */
+        daftarAgendaViweModel = ViewModelProvider(this)[DetailAgendaViewModel::class.java]
+        dialog = DialogUtils()
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            getDetail()
+        }
+       /** Mengecek internet  */
         val isConnected: Boolean = NetworkUtil.cekInternet(applicationContext)
         /** Bila memiliki koneksi internet maka panggil api detail  */
         if (isConnected) {
@@ -39,65 +54,69 @@ class DetailAgenda : AppCompatActivity(),KegiatanAdapter.RecyclerViewClickListen
     }
 
     private fun setPref() {
-//        val user = HawkStorageEletter.instance(this@DetailKonsepKhusus).getUser()
-//        token = user.token.toString()
+        val user = HawkStorage.instance(this@DetailAgenda).getUser()
+        token = user.token.toString()
 //        position = user.detail?.jabatan.toString()
     }
 
     private fun getDetail() {
-//        val btnEdit = findViewById<Button>(R.id.btnEdit)
-//        btnEdit.setOnClickListener {
-//            val intent = Intent(this, EditDetailActivity::class.java)
-//            startActivity(intent)
-//        }
-
-//        val recyclerView: RecyclerView = findViewById(R.id.recyclerViewKegiatan)
-//        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        // Contoh data dummy
-        val kegiatanList = listOf(
-            Kegiatan(
-                "Exit Meeting Pemeriksaan BPK Perwakilan Provinsi Jawa Tengah Terkait Pemeriksaan Pendahuluan Kepatuhan Belanja Infrastruktur TA",
-                "Ruang Rapat Arungbinang",
-                "2023-10-06",
-                "13:00:00",
-                "Nama Orang",
-                "Isi keterangan untuk kegiatan pertama"
-            ),
-            Kegiatan(
-                "Kegiatan Kedua",
-                "Tempat Kedua",
-                "2023-10-07",
-                "14:30:00",
-                "Nama Lain",
-                "Keterangan lain untuk kegiatan kedua"
-            ),
-            Kegiatan(
-                "Kegiatan Ketiga",
-                "Tempat Ketiga",
-                "2023-10-07",
-                "15:30:00",
-                "Nama Lain",
-                "Keterangan lain untuk kegiatan kedua"
-            ),
-            // Tambahkan kegiatan lainnya sesuai kebutuhan
-        )
-
-
-        val adapter = KegiatanAdapter(kegiatanList)
-        binding.recyclerViewKegiatan.adapter = adapter
-        binding.recyclerViewKegiatan.layoutManager = LinearLayoutManager(this)
-        adapter.listener = this
-
+        dataDaftarAgenda = intent.getParcelableExtra("daftaragendalist")
+        iddaftaragenda = dataDaftarAgenda?.id.toString()
+        setDetail()
     }
+
+    private fun setDetail(){
+        daftarAgendaViweModel.isRefresh.observe(this@DetailAgenda) {
+            setRefresh(it)
+        }
+        daftarAgendaViweModel.isLoading.observe(this@DetailAgenda){
+//            setLoading(it)
+            binding.swipeRefreshLayout.isRefreshing = it
+        }
+        daftarAgendaViweModel.getDetailAgenda(token,iddaftaragenda)
+        daftarAgendaViweModel.livedetailagenda.observe(this@DetailAgenda){
+            val status = it.status
+            if (status=="success"){
+                dataDetailItemList = it.datadetail as ArrayList<DatadetailItem>
+                val adapter = KegiatanAdapter(dataDetailItemList)
+                binding.recyclerViewKegiatan.adapter = adapter
+                binding.recyclerViewKegiatan.setHasFixedSize(true)
+                adapter.listener = this
+
+            }else{
+                dialog.hideDialog()
+            }
+        }
+    }
+
+    private fun setRefresh(isRefresh: Boolean) {
+        binding.swipeRefreshLayout.isRefreshing = isRefresh
+    }
+
+//    private fun setLoading(isLoading: Boolean) {
+//        if (isLoading) {
+//            dialog.showProgressDialog(this@DetailAgenda)
+//        } else {
+//            dialog.hideDialog()
+//        }
+//    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
 
-    override fun onItemEditClick(view: View, surat: Kegiatan) {
+    override fun onItemEditClick(view: View, agenda: DatadetailItem) {
         val intent = Intent(this, EditDetailActivity::class.java)
+        intent.putExtra("agenda_item",agenda)
         startActivity(intent)
+    }
+
+    override fun onItemDeleteClick(view: View, agenda: DatadetailItem) {
+        StyleableToast.makeText(this, "Delete: ${agenda.id} berhasil diklik", R.style.Toast_Success).show()
+    }
+
+    override fun onItemLampiranClick(view: View, agenda: DatadetailItem) {
+        StyleableToast.makeText(this, "Lampiran: ${agenda.lampiran} ditampilkan", R.style.Toast_Success).show()
     }
 }

@@ -12,7 +12,8 @@ class ApiConfig {
     companion object{
         private const val REQUEST_TIMEOUT = 180
 
-        const val DOMAIN = "https://raw.githubusercontent.com/harysay/percobaanandoid/main/"
+//        const val DOMAIN = "https://raw.githubusercontent.com/harysay/percobaanandoid/main/"
+        const val DOMAIN = "https://api.npoint.io/"
 
         private var retrofitelet: Retrofit? = null
 

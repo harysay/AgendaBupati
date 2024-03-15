@@ -79,8 +79,8 @@ class DashboardFragment : Fragment(),DashboardListAdapter.RecyclerViewClickListe
     }
     private fun swipeRefresh() {
         binding.swipeRefreshLayout?.setOnRefreshListener {
-//            dashboardViewModel.getDaftarAgenda(token)
-            setDaftarAgendaList()
+            dashboardViewModel.getDaftarAgenda(token)
+//            setDaftarAgendaList()
         }
     }
 
@@ -98,25 +98,15 @@ class DashboardFragment : Fragment(),DashboardListAdapter.RecyclerViewClickListe
             val status = it.status
 
             if (status == "success") {
-//                daftarAgendaList = it.datadaftaragenda as ArrayList<DatadaftaragendaItem>
-                val rawList = it.datadaftaragenda
+                daftarAgendaList = it.datadaftaragenda as ArrayList<DatadaftaragendaItem>
+//                val rawList = it.datadaftaragenda
                 // Membersihkan item kosong sebelum menampilkannya di RecyclerView
-                val cleanedList = cleanEmptyItems(rawList)
+//                val cleanedList = cleanEmptyItems(rawList)
                 // Mengatur daftar yang telah dibersihkan ke adapter RecyclerView
-
-                val suratkonsepAdapter = DashboardListAdapter(cleanedList)
+                val suratkonsepAdapter = DashboardListAdapter(daftarAgendaList)
                 binding.recyclerviewDashboard.adapter = suratkonsepAdapter
                 binding.recyclerviewDashboard.setHasFixedSize(true)
                 suratkonsepAdapter.listener = this
-
-//                if(suratkonsepAdapter.itemCount == 0) {
-//                    binding.listdaftaragenda!!.visibility = View.GONE
-////                    setRecycleView(false)
-//                } else {
-////                    binding.listdaftaragenda!!.visibility = View.VISIBLE
-////                    setRecycleView(true)
-//
-//                }
             }else{
 //                suratKonsepViewModel.
                 binding.errorLayout!!.visibility = View.VISIBLE
@@ -152,9 +142,9 @@ class DashboardFragment : Fragment(),DashboardListAdapter.RecyclerViewClickListe
         binding.containerEmptyData!!.containerEmptyData.visibility = View.GONE
     }
 
-    override fun onItemClickedListItemDashboard(view: View, surat: DatadaftaragendaItem) {
+    override fun onItemClickedListItemDashboard(view: View, dataitem: DatadaftaragendaItem) {
         val intent = Intent(requireContext(), DetailAgenda::class.java)
-//        intent.putExtra(EXTRA_KONSEP, surat)
+        intent.putExtra("daftaragendalist", dataitem)
 //        intent.putExtra(TAG_ARSIP, "")
         context?.startActivity(intent)
     }
@@ -195,26 +185,8 @@ class DashboardFragment : Fragment(),DashboardListAdapter.RecyclerViewClickListe
         setPref()
         val user = HawkStorage.instance(requireActivity()).getUser()
         val nama = user.detail?.nama.toString()
-
         StyleableToast.makeText(requireActivity(), "$nama Berhasil Login! ", R.style.Toast_Success).show()
-
         setDaftarAgendaList()
-//        val items = listOf(
-//            ListItemDashboard("Senin/29 Januari 2024", "Item 1", "2024-01-29"),
-//            ListItemDashboard("Minggu/28 Januari 2024", "Item 2", "2024-01-28"),
-//            ListItemDashboard("Sabtu/27 Januari 2024", "Item 2", "2024-01-27"),
-//            ListItemDashboard("Jumat/26 Januari 2024", "Item 2", "2024-01-25"),
-//            ListItemDashboard("Kamis/25 Januari 2024", "Item 2", "2024-01-25"),
-//            // Tambahkan item lainnya sesuai kebutuhan
-//        )
-//        val adapterDashboard = DashboardListAdapter(items)
-//        binding.recyclerviewDashboard.adapter = adapterDashboard
-//        binding.recyclerviewDashboard.setHasFixedSize(true)
-//        adapterDashboard.listener = this
-
-        // Inisialisasi PendingIntent
-//        val intent = Intent(requireActivity(), EletterServiceReceiver::class.java)
-//        pendingIntent = PendingIntent.getBroadcast(requireActivity(), 0, intent, PendingIntent.FLAG_MUTABLE)
     }
 
     private fun setLoading(isLoading: Boolean) {
@@ -224,12 +196,6 @@ class DashboardFragment : Fragment(),DashboardListAdapter.RecyclerViewClickListe
             dialog.hideDialog()
         }
     }
-//    class TransformViewHolder(binding: ItemDashboardBinding) :
-//        RecyclerView.ViewHolder(binding.root) {
-//
-//        val imageView: ImageView = binding.imageViewItemTransform
-//        val textView: TextView = binding.textViewItemTransform
-//    }
 }
 
 

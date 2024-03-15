@@ -1,16 +1,19 @@
 package id.go.kebumenkab.agendabupati.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class ResponseDetailAgenda(
 
-	@field:SerializedName("datadetail")
+	@field:SerializedName("data")
 	val datadetail: List<DatadetailItem?>? = null,
 
 	@field:SerializedName("status")
 	val status: String? = null
 )
 
+@Parcelize
 data class DatadetailItem(
 
 	@field:SerializedName("no")
@@ -48,4 +51,4 @@ data class DatadetailItem(
 
 	@field:SerializedName("disposisi")
 	val disposisi: String? = null
-)
+): Parcelable

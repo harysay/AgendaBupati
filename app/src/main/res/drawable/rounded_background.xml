@@ -3,11 +3,15 @@
     android:shape="rectangle">
 
     <padding
-        android:left="5dp"
-        android:right="5dp"
+        android:left="10dp"
+        android:right="10dp"
         android:top="5dp"
         android:bottom="5dp" />
-    <corners android:radius="4dp" /> <!-- Sesuaikan nilai radius sesuai keinginan -->
+    <corners android:radius="2dp" /> <!-- Sesuaikan nilai radius sesuai keinginan -->
 
-    <solid android:color="#86B6F6" /> <!-- Warna latar belakang -->
+    <solid android:color="#B4D4FF" /> <!-- Warna latar belakang -->
+    <!-- Tambahkan stroke untuk border -->
+    <stroke
+        android:width="2dp"
+        android:color="#DAE6F6" /> <!-- Warna border -->
 </shape>

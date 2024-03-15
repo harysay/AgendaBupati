@@ -7,28 +7,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="26dp"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="#f8f9fc"
-            android:layout_gravity="bottom"
-            android:paddingBottom="24dp"
             android:padding="14dp">
         <!-- Edit Tanggal -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/textViewTanggalLabel"
                 android:text="Tanggal"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
-            <Button
-                android:id="@+id/btnPilihTanggal"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pilih Tanggal"/>
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/editTextTanggal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="Pilih Tanggal"
+                    android:minHeight="48dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
 
+                <ImageView
+                    android:id="@+id/imageViewCalendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/editTextTanggal"
+                    android:layout_alignEnd="@id/editTextTanggal"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="10dp"
+                    android:contentDescription="Pilih Tanggal"
+                    android:src="@drawable/ic_calendar"/>
+            </RelativeLayout>
             <!-- Edit Jam -->
             <TextView
                 android:layout_width="match_parent"
@@ -36,11 +56,33 @@
                 android:text="Jam"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
-            <Button
-                android:id="@+id/btnPilihJam"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pilih Jam"/>
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/editTextJam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="Atur Jam"
+                    android:minHeight="48dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imageViewJam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/editTextJam"
+                    android:layout_alignEnd="@id/editTextJam"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="10dp"
+                    android:contentDescription="Atur Jam"
+                    android:src="@drawable/ic_calendar"/>
+            </RelativeLayout>
 
             <!-- Edit Agenda -->
             <TextView
@@ -110,11 +152,32 @@
                 android:text="Lampiran"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnlihatlampiran"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/imageViewLampiran"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:contentDescription="Lihat Lampiran"
+                    android:src="@drawable/ic_calendar"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lihat Lampiran"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
             <Button
                 android:id="@+id/btnChooseFile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pilih file"/>
+                android:text="Ubah file lampiran"/>
 
             <!-- Kontak Person -->
             <TextView
@@ -155,6 +218,84 @@
                     android:minHeight="48dp"/>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/border_background_keterangan"
+                android:orientation="horizontal">
+
+                <!-- Bagian Kiri: Inputan Personal -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <!-- Inputan Tambah Personal -->
+                    <AutoCompleteTextView
+                        android:id="@+id/autoCompletePersonel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Ketik sesuatu..."
+                        android:inputType="text"
+                        android:completionThreshold="1"
+                        android:minWidth="70dp"
+                        android:minHeight="48dp"/>
+
+                    <!-- Daftar Personal yang Dipilih -->
+                    <TextView
+                        android:id="@+id/textViewDaftarPersonal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:text="Daftar Personal" />
+
+                    <!-- Daftar Personal Dipilih -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewPersonel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <!-- Bagian Kanan: Tambahan Pendamping -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <!-- Inputan Tambah Personal -->
+                    <AutoCompleteTextView
+                        android:id="@+id/autoCompletePendamping"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Ketik sesuatu..."
+                        android:inputType="text"
+                        android:completionThreshold="1"
+                        android:minWidth="70dp"
+                        android:minHeight="48dp"/>
+
+                    <!-- Daftar Personal yang Dipilih -->
+                    <TextView
+                        android:id="@+id/textViewDaftarPendamping"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:text="Daftar Pendamping " />
+
+                    <!-- Daftar Personal Dipilih -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewPendamping"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
 
             <Button
                 android:id="@+id/btnEditSimpan"
@@ -162,61 +303,12 @@
                 android:layout_height="wrap_content"
                 android:minWidth="70dp"
                 android:minHeight="48dp"
-                android:text="Simpan" />
-
+                android:text="Simpan"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="16dp" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:orientation="vertical"
-                android:padding="14dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <AutoCompleteTextView
-                        android:id="@+id/autoCompleteTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Ketik sesuatu..."
-                        android:inputType="text"
-                        android:completionThreshold="1"
-                        android:minWidth="70dp"
-                        android:minHeight="48dp"
-                        android:layout_toStartOf="@+id/iconTambah"/>
 
-                    <ImageView
-                        android:id="@+id/iconTambah"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@android:drawable/ic_input_add"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:padding="8dp"/>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewPersonel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/autoCompleteTextView"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"/>
-                </RelativeLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:padding="14dp">
-
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
 </ScrollView>

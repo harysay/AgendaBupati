@@ -16,26 +16,24 @@ interface ApiService {
 //        @Field("password") password: String
 //    ): Call<UserResponseEletter>
 
-    @GET("personelagenda.json")
+    @GET("e11ce0ee71df303f3780") //personelagenda
     fun getPersonelAgenda(
         @Header("Authorization") token: String,
     ): Call<ResponsePersonel>
 
-    // Untuk menampilkan surat konsep khusus
-    @GET("daftaragenda.json")
+    @GET("ce8b95acd992605bd00b")// daftaragenda
     fun getDaftarAgenda(
 //        @Header("Authorization") token: String,
     ): Call<ResponseDaftarAgenda>
 
     // Untuk menampilkan surat konsep khusus detail
-    @GET("detailagenda.json")
+    @GET("fa4a6186628768d50e56")//detailagenda
     fun getDetailAgenda(
-        @Header("Authorization") token: String,
-        @Path("id") id: String
+//        @Header("Authorization") token: String,
+//        @Path("id") id: String
     ): Call<ResponseDetailAgenda>
 
-    // Untuk menampilkan surat yang belum diberi aksi
-    @GET("loginagenda.json")
+    @GET("84edb94ca14196bc73f0")// loginagenda
     fun getLogin(
 //        @Header("Authorization") authorization: String,
 //        @Path("username") username: String,
@@ -43,7 +41,7 @@ interface ApiService {
     ): Call<ResponseUser>
 
     // Request detail surat
-    @GET("pendamping.json")
+    @GET("302eb08f5bdbd5cb8c6e")//pendampingagenda
     fun getDetailKonsep(
         @Header("Authorization") authorization: String,
         @Path("id_surat") id_surat: String,
