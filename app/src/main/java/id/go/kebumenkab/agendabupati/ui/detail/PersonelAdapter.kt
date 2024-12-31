@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import id.go.kebumenkab.agendabupati.model.Personel
 import id.go.kebumenkab.agendabupati.databinding.ItemPersonelBinding
-class PersonelAdapter(private var personelList: List<Personel>?) : RecyclerView.Adapter<PersonelAdapter.ViewHolder>() {
+import id.go.kebumenkab.agendabupati.model.DataItemPersonel
+
+class PersonelAdapter(private var personelList: List<DataItemPersonel>?) : RecyclerView.Adapter<PersonelAdapter.ViewHolder>() {
     var listener: RecyclerViewClickListener? = null
 
     class ViewHolder(val binding: ItemPersonelBinding) : RecyclerView.ViewHolder(binding.root)
@@ -33,13 +34,13 @@ class PersonelAdapter(private var personelList: List<Personel>?) : RecyclerView.
         }
     }
 
-    fun submitList(newList: List<Personel>) {
+    fun submitList(newList: List<DataItemPersonel>) {
         personelList = newList
         notifyDataSetChanged()
     }
 
     interface RecyclerViewClickListener {
-        fun onItemPersonelClick(view: View, surat: Personel)
+        fun onItemPersonelClick(view: View, surat: DataItemPersonel)
         // Tambahkan metode lain sesuai kebutuhan, misalnya onDeleteClick, dll.
     }
     override fun getItemCount() = personelList!!.size

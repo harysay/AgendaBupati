@@ -16,6 +16,6 @@ data class DataItemPersonel(
 	@field:SerializedName("nama")
 	val nama: String? = null,
 
-	@field:SerializedName("id")
+	@field:SerializedName("personel_id")
 	val id: String? = null
 )

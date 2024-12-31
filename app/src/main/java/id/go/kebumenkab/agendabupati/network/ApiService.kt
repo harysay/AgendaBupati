@@ -18,7 +18,7 @@ interface ApiService {
 
     @GET("e11ce0ee71df303f3780") //personelagenda
     fun getPersonelAgenda(
-        @Header("Authorization") token: String,
+//        @Header("Authorization") token: String,
     ): Call<ResponsePersonel>
 
     @GET("ce8b95acd992605bd00b")// daftaragenda
@@ -42,10 +42,10 @@ interface ApiService {
 
     // Request detail surat
     @GET("302eb08f5bdbd5cb8c6e")//pendampingagenda
-    fun getDetailKonsep(
-        @Header("Authorization") authorization: String,
-        @Path("id_surat") id_surat: String,
-        @Path("id_histori") id_histori: String
+    fun getPendampingAgenda(
+//        @Header("Authorization") authorization: String,
+//        @Path("id_surat") id_surat: String,
+//        @Path("id_histori") id_histori: String
     ): Call<ResponsePendamping>
 
 

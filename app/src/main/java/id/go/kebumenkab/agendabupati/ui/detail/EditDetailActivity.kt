@@ -11,11 +11,14 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import id.go.kebumenkab.agendabupati.R
 import id.go.kebumenkab.agendabupati.databinding.ActivityEditDetailBinding
+import id.go.kebumenkab.agendabupati.model.DataItemPersonel
 import id.go.kebumenkab.agendabupati.model.DatadaftaragendaItem
 import id.go.kebumenkab.agendabupati.model.DatadetailItem
-import id.go.kebumenkab.agendabupati.model.Personel
+import id.go.kebumenkab.agendabupati.model.HadirItem
+import id.go.kebumenkab.agendabupati.model.ResponsePersonel
 import id.go.kebumenkab.agendabupati.utils.NetworkUtil
 import id.go.kebumenkab.agendabupati.viewmodel.PersonelViewModel
 import io.github.muddz.styleabletoast.StyleableToast
@@ -26,8 +29,7 @@ import java.util.Locale
 class EditDetailActivity : AppCompatActivity(),PersonelAdapter.RecyclerViewClickListener {
     private var dataDetailItemAgenda: DatadetailItem? = null
     private lateinit var binding: ActivityEditDetailBinding
-    private var personelList: ArrayList<Personel>? = null
-    private var personelListAll: ArrayList<Personel>? = null
+    private var personelList: ArrayList<DataItemPersonel>? = null
     private lateinit var viewModel: PersonelViewModel
     private lateinit var iddetailagenda: String
     private lateinit var tanggalagenda: String
@@ -38,7 +40,10 @@ class EditDetailActivity : AppCompatActivity(),PersonelAdapter.RecyclerViewClick
     private lateinit var keteranganagenda: String
     private lateinit var lampiranagenda: String
     private lateinit var kontrakpersonagenda: String
+    private lateinit var id_personalhadir: String
+    private lateinit var nama_personalhadir: String
     private lateinit var status: String
+    private lateinit var adapter: PersonelAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +79,30 @@ class EditDetailActivity : AppCompatActivity(),PersonelAdapter.RecyclerViewClick
         keteranganagenda= dataDetailItemAgenda?.keterangan.toString()
         lampiranagenda= dataDetailItemAgenda?.lampiran.toString()
         kontrakpersonagenda= dataDetailItemAgenda?.kontak.toString()
+        // Inisialisasi personelList
+        val personelList: ArrayList<DataItemPersonel> = ArrayList()
+
+// Cek apakah dataDetailItemAgenda tidak null
+        if (dataDetailItemAgenda != null) {
+            // Dapatkan list HadirItem dari dataDetailItemAgenda
+            val hadirItems: List<HadirItem?>? = dataDetailItemAgenda?.hadir
+            // Cek apakah hadirItems tidak null dan tidak kosong
+            if (!hadirItems.isNullOrEmpty()) {
+                // Loop melalui setiap HadirItem
+                for (hadirItem in hadirItems) {
+                    // Cek apakah hadirItem tidak null
+                    if (hadirItem != null) {
+                        // Konversi HadirItem menjadi DataItemPersonel
+                        val dataItemPersonel = DataItemPersonel(id = hadirItem.personelId, nama = hadirItem.nama)
+                        // Tambahkan dataItemPersonel ke dalam personelList
+                        personelList.add(dataItemPersonel)
+                    }
+                }
+                setupAutoCompletePersonal(personelList)
+                initRecyclerView(personelList)
+            }
+        }
+//        nama_personalhadir=
 //        status= dataDetailItemAgenda?..toString()
         binding.editTextAgenda.setText(agendaacara)
         binding.editTextLokasi.setText(lokasiagenda)
@@ -88,38 +117,18 @@ class EditDetailActivity : AppCompatActivity(),PersonelAdapter.RecyclerViewClick
         binding.editTextJam.setOnClickListener {
             showTimePicker()
         }
-//        // Menambahkan 3 data Personel ke dalam personelList
-//        personelList?.add(Personel("1", "Nama Contoh 1"))
-//        personelList?.add(Personel("2", "Nama Contoh 2"))
-//        personelList?.add(Personel("3", "Nama Contoh 3"))
-//
-//        personelListAll?.add(Personel("1", "Nama Contoh 1"))
-//        personelListAll?.add(Personel("2", "Nama Contoh 2"))
-//        personelListAll?.add(Personel("3", "Nama Contoh 3"))
-//        personelListAll?.add(Personel("4", "Saya adalah 1"))
-//        personelListAll?.add(Personel("5", "Saya Adalah 2"))
-//        personelListAll?.add(Personel("6", "Saya Adalah 3"))
-
-//        val user = HawkStorageEletter.instance(this@DetailKonsepKhusus).getUser()
-//        token = user.token.toString()
-//        position = user.detail?.jabatan.toString()
     }
 
     private fun getDetailEdit() {
         setPref()
-        // Setup the RecyclerView with the adapter
-        val adapter = PersonelAdapter(personelList)
-        binding.recyclerViewPersonel.adapter = adapter
-        binding.recyclerViewPersonel.setHasFixedSize(true)
-        adapter.listener = this
 
-        // Update RecyclerView when personelList changes
-        viewModel.personelListLiveData.observe(this, { newList ->
-            adapter.submitList(newList)
-        })
 
-        // Setup AutoCompleteTextView
-        setupAutoCompleteTextView()
+//        // Setup the RecyclerView with the adapter
+//        val adapter = PersonelAdapter(personelList)
+//        binding.recyclerViewPersonel.adapter = adapter
+//        binding.recyclerViewPersonel.setHasFixedSize(true)
+//        adapter.listener = this
+
     }
 
     private fun showDatePicker() {
@@ -154,36 +163,89 @@ class EditDetailActivity : AppCompatActivity(),PersonelAdapter.RecyclerViewClick
         timePickerDialog.show()
     }
 
+    private fun setupAutoCompletePersonal(lispersonil: List<DataItemPersonel>?) {
+        viewModel.getPersonelAgenda("token", "iddaftaragenda")
+        viewModel.livedetailagenda.observe(this@EditDetailActivity) { response ->
+            val status = response.status
+            if (status == "success") {
+                val masterPersonelList = response.data as ArrayList<DataItemPersonel>
+                // Filter daftar master untuk mendapatkan data yang belum ada di personelList
+                val filteredMasterPersonelList = masterPersonelList.filter { masterItem ->
+                    // Cek apakah item masterItem tidak ada di personelList
+                    !lispersonil!!.any { personelItem -> personelItem.id == masterItem?.id }
+                } as ArrayList<DataItemPersonel>
+
+                val autoCompleteTextView: AutoCompleteTextView = findViewById(R.id.autoCompletePersonel)
+
+                // Buat adapter untuk AutoCompleteTextView
+                val adapter = ArrayAdapter<DataItemPersonel>(this, android.R.layout.simple_dropdown_item_1line, filteredMasterPersonelList)
+                autoCompleteTextView.setAdapter(adapter)
+
+                // Atur aksi yang akan dijalankan saat item dipilih dari AutoCompleteTextView
+                autoCompleteTextView.setOnItemClickListener { _, _, position, _ ->
+                    val selectedPersonel = adapter.getItem(position)
+                    selectedPersonel?.let {
+                        // Tambahkan personel yang dipilih ke dalam daftar yang dipilih di ViewModel
+                        viewModel.addSelectedPersonel(selectedPersonel)
+                    }
+                    autoCompleteTextView.text.clear()
+                }
+            }
+        }
+
+        // Observasi daftar personel dari ViewModel
+        viewModel.selectedPersonelList.observe(this) { personelList ->
+            // Tampilkan daftar personel yang dipilih di RecyclerView
+            updateRecyclerView(personelList)
+        }
+    }
+
+    private fun initRecyclerView(lispersonil: List<DataItemPersonel>?) {
+        // Inisialisasi RecyclerView dan Adapter
+        adapter = PersonelAdapter(lispersonil)
+        binding.recyclerViewPersonel.adapter = adapter
+        binding.recyclerViewPersonel.layoutManager = LinearLayoutManager(this)
+        adapter.listener = this
+        // Setup the RecyclerView with the adapter
+//        val adapter = PersonelAdapter(personelList)
+//        binding.recyclerViewPersonel.adapter = adapter
+    }
+
+    private fun updateRecyclerView(personelList: List<DataItemPersonel>) {
+        adapter.submitList(personelList)
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
 
-    override fun onItemPersonelClick(view: View, surat: Personel) {
+
+    override fun onItemPersonelClick(view: View, surat: DataItemPersonel) {
         TODO("Not yet implemented")
     }
 
-    private fun setupAutoCompleteTextView() {
-        val autoCompleteTextView: AutoCompleteTextView = findViewById(R.id.autoCompletePersonel)
-
-        // Buat adapter untuk AutoCompleteTextView
-        val adapter = personelListAll?.let {
-            ArrayAdapter(
-                this,
-                android.R.layout.simple_dropdown_item_1line,
-                it.map { it.nama } // Ambil hanya nama personel
-            )
-        }
-
-        // Atur adapter ke AutoCompleteTextView
-        autoCompleteTextView.setAdapter(adapter)
-
-        // Atur aksi yang akan dijalankan saat item dipilih dari AutoCompleteTextView
-        autoCompleteTextView.setOnItemClickListener { _, _, position, _ ->
-            // Lakukan sesuatu saat item dipilih, seperti menambahkan personel ke RecyclerView
-            val selectedPersonel = personelListAll?.get(position)
-            viewModel.addPersonel(selectedPersonel!!)
-            autoCompleteTextView.text.clear()
-        }
-    }
+//    private fun setupAutoCompleteTextView() {
+//        val autoCompleteTextView: AutoCompleteTextView = findViewById(R.id.autoCompletePersonel)
+//
+//        // Buat adapter untuk AutoCompleteTextView
+//        val adapter = personelListAll?.let {
+//            ArrayAdapter(
+//                this,
+//                android.R.layout.simple_dropdown_item_1line,
+//                it.map { it.nama } // Ambil hanya nama personel
+//            )
+//        }
+//
+//        // Atur adapter ke AutoCompleteTextView
+//        autoCompleteTextView.setAdapter(adapter)
+//
+//        // Atur aksi yang akan dijalankan saat item dipilih dari AutoCompleteTextView
+//        autoCompleteTextView.setOnItemClickListener { _, _, position, _ ->
+//            // Lakukan sesuatu saat item dipilih, seperti menambahkan personel ke RecyclerView
+//            val selectedPersonel = personelListAll?.get(position)
+//            viewModel.addPersonel(selectedPersonel!!)
+//            autoCompleteTextView.text.clear()
+//        }
+//    }
 }

@@ -6,23 +6,22 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import id.go.kebumenkab.agendabupati.model.DataItemPersonel
-import id.go.kebumenkab.agendabupati.model.ResponsePersonel
+import id.go.kebumenkab.agendabupati.model.ResponsePendamping
 import id.go.kebumenkab.agendabupati.network.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 
-class PersonelViewModel : ViewModel() {
-    private val _infodetailagenda = MutableLiveData<ResponsePersonel>()
-    val livedetailagenda: LiveData<ResponsePersonel> = _infodetailagenda
+class PendampingViewModel : ViewModel() {
+    private val _infodetailagenda = MutableLiveData<ResponsePendamping>()
+    val livedetailagenda: LiveData<ResponsePendamping> = _infodetailagenda
     lateinit var errorType: String
     lateinit var errorDesc: String
-    private val _selectedPersonelList = MutableLiveData<List<DataItemPersonel>>()
-    val selectedPersonelList: LiveData<List<DataItemPersonel>> = _selectedPersonelList
-    private val _selectedPendampingList = MutableLiveData<List<ResponsePersonel>>()
-    val selectedPendampingList: LiveData<List<ResponsePersonel>> = _selectedPendampingList
+    private val _selectedPersonelList = MutableLiveData<List<ResponsePendamping>>()
+    val selectedPersonelList: LiveData<List<ResponsePendamping>> = _selectedPersonelList
+    private val _selectedPendampingList = MutableLiveData<List<ResponsePendamping>>()
+    val selectedPendampingList: LiveData<List<ResponsePendamping>> = _selectedPendampingList
 
     // Live data instance
     val createPostLiveData get() = _infodetailagenda
@@ -36,21 +35,21 @@ class PersonelViewModel : ViewModel() {
     private val _infoserverdetailagenda = MutableLiveData<String>()
     val isInfoserverkonsep: LiveData<String> = _infoserverdetailagenda
 
-    fun getPersonelAgenda(token: String,idDaftar:String) {
+    fun getPendampingAgenda(token: String,idDaftar:String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getPersonelAgenda()
-        client.enqueue(object : Callback<ResponsePersonel> {
-            override fun onResponse(call: Call<ResponsePersonel>, response: Response<ResponsePersonel>) {
+        val client = ApiConfig.getApiService().getPendampingAgenda()
+        client.enqueue(object : Callback<ResponsePendamping> {
+            override fun onResponse(call: Call<ResponsePendamping>, response: Response<ResponsePendamping>) {
                 _isRefresh.value = false
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _infodetailagenda.value = response.body() as ResponsePersonel
+                    _infodetailagenda.value = response.body() as ResponsePendamping
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<ResponsePersonel>, t: Throwable) {
+            override fun onFailure(call: Call<ResponsePendamping>, t: Throwable) {
                 _isRefresh.value = false
                 _isLoading.value = false
 
@@ -72,20 +71,20 @@ class PersonelViewModel : ViewModel() {
         })
     }
 
-    fun addSelectedPersonel(personel: DataItemPersonel) {
+    fun addSelectedPersonel(personel: ResponsePendamping) {
         val currentList = _selectedPersonelList.value?.toMutableList() ?: mutableListOf()
         currentList.add(personel)
         _selectedPersonelList.value = currentList
     }
 
-    fun addSelectedPendamping(pendamping: ResponsePersonel) {
+    fun addSelectedPendamping(pendamping: ResponsePendamping) {
         val currentList = _selectedPendampingList.value?.toMutableList() ?: mutableListOf()
         currentList.add(pendamping)
         _selectedPendampingList.value = currentList
     }
 
     companion object {
-        private const val TAG = "PersonelAgenda"
+        private const val TAG = "PendampingAgenda"
 
     }
 }

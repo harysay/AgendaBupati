@@ -29,7 +29,7 @@ data class DatadetailItem(
 	val tempat: String? = null,
 
 	@field:SerializedName("hadir")
-	val hadir: String? = null,
+	val hadir: List<HadirItem?>? = null,
 
 	@field:SerializedName("pendamping")
 	val pendamping: String? = null,
@@ -51,4 +51,14 @@ data class DatadetailItem(
 
 	@field:SerializedName("disposisi")
 	val disposisi: String? = null
+): Parcelable
+
+@Parcelize
+data class HadirItem(
+
+	@field:SerializedName("nama")
+	val nama: String? = null,
+
+	@field:SerializedName("personel_id")
+	val personelId: String? = null
 ): Parcelable
